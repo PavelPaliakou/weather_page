@@ -1,4 +1,4 @@
-const API = "fc64772cf5eaa5ce9a95538e6776eef1";
+const API = "your_API";
 let latitude = 0;
 let longitude = 0;
 let searchCity = "";
