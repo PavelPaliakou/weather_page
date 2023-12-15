@@ -1,4 +1,6 @@
-Simple weather page.
-HTML + tailwindcss + JS DOM with openweathermap.org API.
-For API uncomment "script.js" and comment "mockScript.js" in <Head> section.
+# Simple weather page.
+_HTML_ + _tailwindcss_ + _JS_ _DOM_ with _openweathermap.org API_.
+
+For API uncomment _"script.js"_ and comment _"mockScript.js"_ in _Head_ section.
+
 Unfortunately API doesn't work in github pages, but mocked version you can see here - https://pavelpaliakou.github.io/weather_page/
