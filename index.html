@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta author="Pavel Paliakou">
+    <title>Weather</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="script.js"></script>
+    <!-- <script defer src="mockScript.js"></script> -->
+</head>
+
+<body class="bg-gray-200">
+    <header class="md:sticky top-0 left-0 flex w-full justify-center bg-black">
+        <div class="flex flex-col md:flex-row justify-between gap-4 items-center w-full max-w-5xl p-4 text-white">
+            <div class="flex flex-row items-center gap-4">
+                <img src="./favicon-32x32.png" alt="site logo">
+                <p>Weather Page</p>
+            </div>
+            <div class="flex flex-row items-center gap-4">
+                <span id="header-city">City</span>
+                <span id="header-temperature">5C</span>
+                <img id="header-weather-icon" width="32px" height="32px" src="./favicon-32x32.png" alt="current weather">
+                <span id="header-weather">Cloudy</span>
+            </div>
+            <div class="flex items-center">
+                <input type="text" id="search-input" class="text-black text-center rounded-md" placeholder="Enter city">
+            </div>
+        </div>
+    </header>
+    <main class="flex flex-col w-full max-w-5xl my-4 mx-auto px-4 gap-4 text-lg">
+
+        <div id="error-container" class="hidden flex-col p-4 bg-white">
+            <p class="text-red-500 text-1xl font-medium"> 
+                <p>ERROR:</p>
+                <span id="error-message">Hello</span>
+            </p>
+        </div>
+
+        <div class="flex flex-col p-4 bg-white">
+            <p class="uppercase mb-4">Your current location is:</p>
+
+            <div class="flex flex-col md:flex-row gap-4 md:gap-40 w-full">
+                <div class="flex flex-col gap-4 w-full md:w-2/4">
+                    <div class="flex justify-between border-b-4">
+                        <span>City</span>
+                        <span id="city">100</span>
+                    </div>
+                    <div class="flex justify-between border-b-4">
+                        <span>Country</span>
+                        <span id="country">100</span>
+                    </div>
+                    <div class="flex justify-between border-b-4">
+                        <span>Time zone</span>
+                        <span id="timezone">100</span>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-4 w-full md:w-2/4">
+                    <div class="flex justify-between border-b-4">
+                        <span>Current time</span>
+                        <span id="current-time">100</span>
+                    </div>
+                    <div class="flex justify-between border-b-4">
+                        <span>Latitude</span>
+                        <span id="latitude">100</span>
+                    </div>
+                    <div class="flex justify-between border-b-4">
+                        <span>Longitude</span>
+                        <span id="longitude">100</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-col p-4 bg-white">
+            <p class="uppercase mb-4">Current Weather</p>
+
+            <div class="flex flex-col md:flex-row gap-4 md:gap-40 ">
+
+                <div class="flex flex-col w-full md:w-2/4">
+                    <span id="weather">Cloudy</span>
+                    <div class="flex justify-evenly flex-row">
+                        <img id="weather-icon" class="rounded-full bg-sky-200" alt="current weather">
+                        <div class="flex flex-col items-center">
+                            <div id="current-temperature" class="text-7xl font-bold">
+                                3°
+                                <span class="text-lg -ml-5">c</span>
+                            </div>
+                            <span id="feel-like-temperature">Feels Like</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-4 w-full md:w-2/4">
+                    <div class="flex justify-between border-b-4">
+                        <span>Pressure</span>
+                        <span id="pressure">100</span>
+                    </div>
+                    <div class="flex justify-between border-b-4">
+                        <span>Humidity</span>
+                        <span id="humidity">100</span>
+                    </div>
+                    <div class="flex justify-between border-b-4">
+                        <span>Cloud</span>
+                        <span id="cloud">100</span>
+                    </div>
+                    <div class="flex justify-between border-b-4">
+                        <span>Visibility</span>
+                        <span id="visibility">100</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="description">Description</div>
+        </div>
+
+        <div class="flex flex-col p-4 bg-white">
+            <p class="uppercase mb-4">Wind</p>
+            <div class="flex flex-col md:flex-row gap-4 md:gap-40 ">
+
+                <div class="flex flex-row justify-between md:justify-around w-full md:w-2/4">
+                    <div class="flex flex-col justify-center">
+                        <span id="wind-direction" class="text-4xl md:text-5xl">20</span>
+                    </div>
+                    <div class="flex justify-evenly flex-row">
+                        <img id="wind-direction-icon" src="./icons8-arrow-48.png" alt="wind-direction">
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-4 w-full md:w-2/4">
+                    <div class="flex justify-between border-b-4">
+                        <span>Wind speed</span>
+                        <span id="wind-speed">20</span>
+                    </div>
+                    <div class="flex justify-between border-b-4">
+                        <span>Wind gust</span>
+                        <span id="wind-gust">10</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-col p-4 bg-white">
+            <p class="uppercase mb-4">Air quality</p>
+            <div class="flex  flex-col md:flex-row gap-4 md:gap-40">
+                <div class="relative flex justify-center items-center w-full md:w-2/4 text-5xl md:text-7xl font-bold rounded-full z-10">
+                    <p id="air-quality" class="drop-shadow-[0_0_10px_rgba(255,255,255,1)]">Good</p>
+                    <svg id="air-quality-icon" class="absolute w-full h-full -z-10" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                        viewBox="0 0 256 256">
+                        <g>
+                            <g>
+                                <path
+                                    d="M165.8,163.9H16.8c-3.8,0-6.8,3.1-6.8,6.8s3.1,6.8,6.8,6.8h148.9c12.5,0,22.7,10.2,22.7,22.7c0,12.5-10.2,22.7-22.7,22.7c-9,0-17.1-5.3-20.8-13.5c-1.5-3.4-5.6-5-9-3.5c-3.4,1.5-5,5.6-3.5,9c5.9,13.1,18.9,21.6,33.3,21.6c20.1,0,36.4-16.3,36.4-36.4C202.2,180.2,185.9,163.9,165.8,163.9z" />
+                                <path
+                                    d="M203,48.9c-19.8,0-36.9,13.4-41.7,32.6c-0.9,3.7,1.3,7.4,5,8.3c3.7,0.9,7.4-1.3,8.3-5c3.3-13.1,15-22.2,28.4-22.2c16.2,0,29.3,13.1,29.3,29.3c0,16.1-13.1,29.3-29.3,29.3H16.8c-3.8,0-6.8,3.1-6.8,6.9c0,3.8,3.1,6.8,6.8,6.8H203c23.7,0,43-19.3,43-43C246,68.2,226.7,48.9,203,48.9z" />
+                                <path
+                                    d="M16.8,92.1h89.8c0.2,0,0.4,0,0.6,0c0.2,0,0.4,0,0.6,0c20.1,0,36.4-16.3,36.4-36.4s-16.3-36.4-36.4-36.4c-14.4,0-27.4,8.5-33.3,21.6c-1.5,3.4,0,7.5,3.5,9c3.4,1.5,7.5,0,9-3.5C90.6,38.3,98.8,33,107.7,33c12.5,0,22.7,10.2,22.7,22.7c0,12.5-10.2,22.7-22.7,22.7c-0.2,0-0.4,0-0.6,0c-0.2,0-0.4,0-0.6,0H16.8c-3.8,0-6.8,3.1-6.8,6.8S13.1,92.1,16.8,92.1z" />
+                            </g>
+                        </g>
+                    </svg>
+                </div>
+                <div id="components" class="flex flex-col justify-between w-full md:w-2/4"></div>
+            </div>
+        </div>
+
+        <div class="flex flex-col p-4 bg-white">
+            <p class="uppercase mb-4">Sunrise/Sunset</p>
+
+            <div class="flex flex-col md:flex-row gap-4 md:gap-20 ">
+                <div class="flex justify-center w-full md:w-1/3">
+                    <img id="day-night-icon" class="w-20 h-20 max-w-none" src="./icons8-moon-64.png" alt="sun">
+                </div>
+                <div class="flex flex-col gap-4 w-full md:w-1/3">   
+                    <div class="flex justify-between border-b-4">
+                        <span>Sunrise</span>
+                        <span id="sunrise"></span>
+                    </div>
+                    <div class="flex justify-between border-b-4">
+                        <span>Sunset</span>
+                        <span id="sunset"></span>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-4 w-full md:w-1/3">   
+                    <div class="flex justify-between border-b-4">
+                        <span>Sunrise in</span>
+                        <span id="sunrise-in">in 20 m</span>
+                    </div>
+                    <div class="flex justify-between border-b-4">
+                        <span>Sunset in</span>
+                        <span id="sunset-in">in 20 m</span>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </main>
+    <footer class="flex max-w-5xl mt-4 mx-auto px-4">
+        <div class="flex flex-row items-center justify-evenly w-full p-4 my-8 bg-white">
+            <p>Made by Pavel Paliakou &copy; 2023</p>
+            <div class="flex flex-row gap-4">
+                <a href="https://github.com/PavelPaliakou" aria-label="github profile">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 496 512">
+                        <path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/>
+                    </svg>
+                </a>
+                <a href="https://www.linkedin.com/in/pavel-p-4a0724287/" aria-label="linkedin profile">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24">
+                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
