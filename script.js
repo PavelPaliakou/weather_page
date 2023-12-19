@@ -1,4 +1,4 @@
-const API = "your_API";
+const API = "Enter your API key";
 let latitude = 0;
 let longitude = 0;
 let searchCity = "";
@@ -26,7 +26,8 @@ const searchInputElement = document.getElementById("search-input");
 searchInputElement.addEventListener("keydown", (e) => {
   if (e.code === "Enter") {
     searchCity = e.target.value;
-    searchRequest = `http://api.openweathermap.org/geo/1.0/direct?q=${searchCity}&limit=1&appid=${API}`
+    searchRequest = `http://api.openweathermap.org/geo/1.0/direct?q=${searchCity}&limit=1&appid=${API}`;
+    e.target.value = "";
     fetchData();
   }
 });
@@ -90,7 +91,7 @@ async function fetchData() {
 
   let currentRawTime = data.dt * 1000;
   let currentDate = new Date(currentRawTime);
-  let currentTime = currentDate.getHours() + ":" + currentDate.getMinutes();
+  let currentTime = currentDate.getHours() + ":" + formatMinutes(currentDate.getMinutes());
   document.getElementById("current-time").innerText = currentTime;
 
   latitude = data.coord.lat;
@@ -213,11 +214,11 @@ async function fetchData() {
   let sunsetRawTime = data.sys.sunset * 1000;
 
   let sunrise = new Date(sunriseRawTime);
-  let sunriseTime = sunrise.getHours() + ":" + sunrise.getMinutes();
+  let sunriseTime = sunrise.getHours() + ":" + formatMinutes(sunrise.getMinutes());
   document.getElementById("sunrise").innerText = sunriseTime;
 
   let sunset = new Date(sunsetRawTime);
-  let sunsetTime = sunset.getHours() + ":" + sunset.getMinutes();
+  let sunsetTime = sunset.getHours() + ":" + formatMinutes(sunset.getMinutes());
   document.getElementById("sunset").innerText = sunsetTime;
 
   let dayNightIcon = document.getElementById("day-night-icon");
@@ -243,6 +244,13 @@ async function fetchData() {
     sunsetIn = new Date(day - currentRawTime + sunsetRawTime);
   }
 
-  document.getElementById("sunrise-in").innerText = sunriseIn.getHours() + ":" + sunriseIn.getMinutes();
-  document.getElementById("sunset-in").innerText = sunsetIn.getHours() + ":" + sunsetIn.getMinutes();
+  document.getElementById("sunrise-in").innerText = sunriseIn.getHours() + ":" + formatMinutes(sunriseIn.getMinutes());
+  document.getElementById("sunset-in").innerText = sunsetIn.getHours() + ":" + formatMinutes(sunsetIn.getMinutes());
+
+  function formatMinutes(minutes) {
+    if (minutes < 10) {
+      return "0" + minutes;
+    }
+    return minutes;
+  }
 }
